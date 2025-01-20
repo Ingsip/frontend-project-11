@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import i18next from 'i18next';
 import axios from 'axios';
 import resources from './locales/index.js';
-import watch from './view.js';
+import watcher from './view.js';
 
 export default async () => {
   const elements = {
@@ -10,6 +10,9 @@ export default async () => {
     input: document.querySelector('#url-input'),
     submitButton: document.querySelector('button[type="submit"]'),
     feedback: document.querySelector('.feedback'),
+    feedsList: document.querySelector('.feeds'),
+    postsList: document.querySelector('.posts'),
+
     fields: {},
     errorFields: {},
   };
@@ -50,28 +53,26 @@ export default async () => {
             .required()
             .notOneOf(addUrl, 'feedback.conflict'),
     });
-
-  const watchedState = watch(elements, i18n, state); // Наблюдаемое состояние
-  watchedState.form.status = 'filling'; // заполнение
-
 /*const urlSchema = (addUrl) => yup.object({
     urlRss: yup.string()
     .url()
     .required()
     .notOneOf(addUrl),
   });*/
+  const watchedState = watcher(elements, i18n, state); // Наблюдаемое состояние
 
     elements.form.addEventListener('submit', (event) => {
       event.preventDefault();
-      watchedState.form.process = 'loading';
+      watchedState.form.status = 'loading';
       watchedState.form.errors = null;
 
       const formData = new FormData(event.target);
-      const url = formData.get('url');
-      const links = watchedState.data.feeds.map((feed) => feed.url);
+      const url = formData.get('url'); //получаем значение поля формы 'url'.
 
-    });
+      urlSchema.validate(url)
+      //.then
 
-})
+});
+
+});
 };
-
