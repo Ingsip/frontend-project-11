@@ -1,8 +1,10 @@
+/* eslint-disable no-undef */
 import * as yup from 'yup';
 import i18next from 'i18next';
 import axios from 'axios';
 import resources from './locales/index.js';
 import watcher from './view.js';
+import { getProxy, parseRss } from './parser.js';
 
 export default async () => {
   const elements = {
@@ -17,12 +19,17 @@ export default async () => {
     errorFields: {},
   };
 
+  const validate = (url, feeds) => {
+    const urlSchema = yup.string().url().required().notOneOf(feeds);
+    return urlSchema.validate(url, { abortEarly: false })
+  };
+
 
   const state = {
     form: {
       status: 'filling',// null неверно
       valid: false,
-      errors: '',
+      errors: null,
     },
     links: [],
     posts: [],
@@ -46,19 +53,24 @@ export default async () => {
       },
     });
   })
-  .then(() => {
+  /*.then(() => {
     const urlSchema = (addUrl) => yup.object({
         urlRss: yup.string()
             .url()
             .required()
             .notOneOf(addUrl, 'feedback.conflict'),
-    });
+    });*/
+
 /*const urlSchema = (addUrl) => yup.object({
     urlRss: yup.string()
     .url()
     .required()
     .notOneOf(addUrl),
   });*/
+
+
+
+
   const watchedState = watcher(elements, i18n, state); // Наблюдаемое состояние
 
     elements.form.addEventListener('submit', (event) => {
@@ -69,10 +81,12 @@ export default async () => {
       const formData = new FormData(event.target);
       const url = formData.get('url'); //получаем значение поля формы 'url'.
 
-      urlSchema.validate(url)
-      //.then
+      validate(url, watchedState.links)
+      .then((validUrl) => {
+        const rss = axios.get(getProxy(validUrl));
+        return rss;
+      })
 
 });
 
-});
 };
