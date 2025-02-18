@@ -1,13 +1,16 @@
 export default {
   translation: {
-    feedback: {
-      success: 'RSS успешно загружен',
-      conflict: 'RSS уже существует',
-      notEmpty: 'Не должно быть пустым',
+    errors: {
       invalidUrl: 'Ссылка должна быть валидным URL',
+      conflict: 'RSS уже существует',
       invalidRss: 'Ресурс не содержит валидный RSS',
-      viewing: 'Просмотр',
+      notEmpty: 'Не должно быть пустым',
       networkError: 'Ошибка сети',
       },
+    loading: 'Идет загрузка',
+    success: 'RSS успешно загружен',
+    viewing: 'Просмотр',
+    posts: 'Посты',
+    feeds: 'Фиды',
     },
 };

@@ -1,34 +1,33 @@
-/* eslint-disable no-undef */
-const getProxy = (url) => {
-	const proxy = new URL('get', 'https://allorigins.hexlet.app');
-	proxy.searchParams.set('url', url);
-	proxy.searchParams.set('disableCache', true);
-	return proxy.toString();
-};
+const getPosts = (data) => {
+	const items = data.querySelectorAll('channel > item');
+	const posts = [...items].map((item) => {
+	const title = item.querySelector('title').textContent;
+	const description = item.querySelector('description').textContent;
+	const link = item.querySelector('link').textContent;
 
-const parseRss = (xmlString) => {
-	const parser = new DOMParser();
-	const xmlDoc = parser.parseFromString(xmlString, 'application/xml');
-
-	const errorNode = xmlDoc.querySelector('parsererror');
-	if (errorNode) {
-		throw new Error('feedback.parseError');
-	}
-	const feedTitle = xmlDoc.querySelector('channel > title').textContent;
-	const feedDescription = xmlDoc.querySelector('channel > description').textContent;
-	const feed = {
-		title: feedTitle,
-		description: feedDescription,
-	};
-	const items = Array.from(xmlDoc.querySelectorAll('item')).map((item) => {
-		const title = item.querySelector('title').textContent;
-		const link = item.querySelector('link').textContent;
-		const description = item.querySelector('description').textContent;
-		return { title, link, description };
+	return { title, description, link };
 	});
-
-	return { feed, posts: items };
+	return posts;
 };
 
+const getFeed = (data) => {
+	const title = data.querySelector('channel > title').textContent;
+	const description = data.querySelector('channel > description').textContent;
 
-export default { getProxy, parseRss };
+	return { title, description };
+};
+
+export default (rss) => {
+	const parser = new DOMParser();
+	const parsed = parser.parseFromString(rss, 'text/xml');
+	const parserError = parsed.querySelector('parsererror');
+
+	if (parserError) {
+	throw new Error(parserError);
+	}
+
+	const feed = getFeed(parsed);
+	const posts = getPosts(parsed);
+
+	return { feed, posts };
+};
