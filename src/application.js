@@ -7,10 +7,10 @@ import watcher from './view.js';
 import parseRss from './parser.js';
 
 const getProxy = (url) => {
-	const proxy = new URL('/get', 'https://allorigins.hexlet.app');
-	proxy.searchParams.set('disableCache', true);
+  const proxy = new URL('/get', 'https://allorigins.hexlet.app');
+  proxy.searchParams.set('disableCache', true);
   proxy.searchParams.set('url', url);
-	return proxy.toString();
+  return proxy.toString();
 };
 
 const validate = (url, feeds) => {
