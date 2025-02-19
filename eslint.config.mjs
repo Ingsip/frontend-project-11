@@ -1,14 +1,13 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
+/*import globals from "globals";
+import pluginJs from "@eslint/js";*/
 
-
-/** @type {import('eslint').Linter.Config[]} */
+/* @type {import('eslint').Linter.Config[]} */
 /*export default [
   {languageOptions: { globals: globals.node }},
   pluginJs.configs.recommended,
 ];*/
 
-export default [
+/*export default [
   {
     languageOptions: {
       globals: {
@@ -46,6 +45,42 @@ export default [
       'import/no-named-as-default-member': 'off',
       'no-console': 'off',
       'import/no-extraneous-dependencies': 'off',
+    },
+  },
+];*/
+
+// eslint.config.mjs
+import eslintPluginImport from 'eslint-plugin-import';
+import js from '@eslint/js';
+
+export default [
+  js.configs.recommended,
+
+  {
+    plugins: {
+      import: eslintPluginImport,
+    },
+    rules: {
+      // Включаем правила плагина, используя префикс "import/"
+      'import/no-unresolved': 'error',
+      'import/named': 'error',
+      'import/default': 'error',
+      'import/namespace': 'error',
+      'import/no-self-import': 'error',
+      'import/order': [
+        'error',
+        {
+          groups: ['builtin', 'external', 'parent', 'sibling', 'index'],
+          'newlines-between': 'always',
+        },
+      ],
+    },
+    settings: {
+      'import/resolver': {
+        node: {
+          extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs'],
+        },
+      },
     },
   },
 ];
