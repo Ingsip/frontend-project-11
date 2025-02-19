@@ -14,7 +14,11 @@ const getProxy = (url) => {
 };
 
 const validate = (url, feeds) => {
-  const urlSchema = yup.string().url().required().notOneOf(feeds);
+  const urlSchema = yup
+  .string()
+  .url()
+  .required()
+  .notOneOf(feeds);
   return urlSchema.validate(url, { abortEarly: false });
 };
 
@@ -53,7 +57,7 @@ export default () => {
 
   const state = {
     form: {
-      status: '',// null неверно
+      status: '',
       valid: false,
       errors: '',
     },
