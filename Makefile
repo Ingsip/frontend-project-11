@@ -2,7 +2,7 @@ install:
 	npm ci
 
 lint:
-	eslint . --config eslint.config.mjs
+	npm run lint
 
 fix:
 	npx eslint --fix .

@@ -49,37 +49,57 @@ import pluginJs from "@eslint/js";*/
   },
 ];*/
 
-// eslint.config.mjs
+
 import eslintPluginImport from 'eslint-plugin-import';
 import js from '@eslint/js';
 
 export default [
   js.configs.recommended,
-
   {
+    ignores: ['dist/**'],
+  },
+  {
+    files: ['webpack.config.js'],
+    languageOptions: {
+        globals: {
+            __dirname: 'readonly',
+            module: 'readonly',
+            require: 'readonly',
+        },
+        parserOptions: {
+            ecmaVersion: 2020,
+            sourceType: 'module',
+        },
+    },
     plugins: {
       import: eslintPluginImport,
     },
     rules: {
-      // Включаем правила плагина, используя префикс "import/"
       'import/no-unresolved': 'error',
       'import/named': 'error',
       'import/default': 'error',
       'import/namespace': 'error',
       'import/no-self-import': 'error',
-      'import/order': [
-        'error',
-        {
-          groups: ['builtin', 'external', 'parent', 'sibling', 'index'],
-          'newlines-between': 'always',
-        },
-      ],
     },
     settings: {
       'import/resolver': {
         node: {
-          extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs'],
+          extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs'], 
         },
+      },
+    },
+  },
+  {
+    files: ['src/view.js', 'src/parser.js', 'src/application.js'],
+    languageOptions: {
+      globals: {
+        document: 'readonly',  // Определяем глобальную переменную document
+        window: 'readonly',
+        DOMParser: 'readonly',
+        URL: 'readonly',
+        setTimeout: 'readonly',
+        FormData: 'readonly',
+        submitButton: 'readonly',
       },
     },
   },

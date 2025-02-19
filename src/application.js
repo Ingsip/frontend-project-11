@@ -2,6 +2,7 @@ import * as yup from 'yup';
 import i18next from 'i18next';
 import axios from 'axios';
 import _ from 'lodash';
+
 import resources from './locales/index.js';
 import watcher from './view.js';
 import parseRss from './parser.js';
