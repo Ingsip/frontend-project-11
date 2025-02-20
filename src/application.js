@@ -69,7 +69,7 @@ export default () => {
     readPosts: [],
   };
 
-
+  //const getData = (url) => axios.get(getProxy(url));
   const watchedState = watcher(elements, i18n, state); // Наблюдаемое состояние
 
 const update = () => {
@@ -91,9 +91,8 @@ const update = () => {
     });
     return getNewPost;
   });
-  Promise.all(promises).finally(() => { setTimeout(update, 5000); });
+  Promise.all(promises).catch(() => { setTimeout(update, 5000); });
 };
-
 
     elements.form.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -135,5 +134,5 @@ elements.posts.addEventListener('click', (event) => {
     state.readPosts.push(state.posts[indexOfPost]);
   }
 });
-  update();
+  update(watchedState);
 };
