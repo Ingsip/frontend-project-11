@@ -76,7 +76,7 @@ export default () => {
 
       const getNewPost = axios.get(url).then((response) => {
         const data = parseRss(response.data.contents);
-        const currentPosts = data.posts.map((post) => ( {...post, id: feed.id} ));
+        const currentPosts = data.posts.map((post) => ({ ...post, id: feed.id }));
         const oldPost = posts.filter((post) => post.id === feed.id);
         const newPost = _.differenceWith(currentPosts, oldPost, _.isEqual);
 
