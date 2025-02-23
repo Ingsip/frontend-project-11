@@ -124,10 +124,21 @@ const update = () => {
       .catch((err) => {
         watchedState.form.status = 'failed';
         if (err.message === 'Network Error') {
-          watchedState.form.status = 'networkError';
-          return;
-        }
-        watchedState.form.errors = err.errors.join();
+          watchedState.form.errors = 'errors.networkError';
+          elements.form.querySelector('.error-message').textContent = 'Ошибка сети';
+          elements.form.querySelector('.error-message').style.display = 'block';
+        } else {
+          if (err.errors) {
+            watchedState.form.errors = err.errors.join();
+            elements.form.querySelector('.error-message').textContent = err.errors.join();
+            elements.form.querySelector('.error-message').style.display = 'block';
+          } else {
+            watchedState.form.errors = err.name;
+          elements.form.querySelector('.error-message').textContent = err.name;
+          elements.form.querySelector('.error-message').style.display = 'block';
+          }
+            return;
+          }
       });
 });
 elements.posts.addEventListener('click', (event) => {
