@@ -10,9 +10,9 @@ export default [
     files: ['webpack.config.js'],
     languageOptions: {
       globals: {
-          __dirname: 'readonly',
-          module: 'readonly',
-          require: 'readonly',
+        __dirname: 'readonly',
+        module: 'readonly',
+        require: 'readonly',
       },
       parserOptions: {
         ecmaVersion: 2020,

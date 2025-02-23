@@ -76,7 +76,7 @@ export default () => {
 
       const getNewPost = axios.get(url).then((response) => {
         const data = parseRss(response.data.contents);
-        const currentPosts = data.posts.map((post) => ( {...post, id: feed.id }));
+        const currentPosts = data.posts.map((post) => ( {...post, id: feed.id} ));
         const oldPost = posts.filter((post) => post.id === feed.id);
         const newPost = _.differenceWith(currentPosts, oldPost, _.isEqual);
 
@@ -119,16 +119,14 @@ export default () => {
           watchedState.form.errors = 'errors.networkError';
           elements.form.querySelector('.error-message').textContent = 'Ошибка сети';
           elements.form.querySelector('.error-message').style.display = 'block';
+        } else if (err.errors) {
+          watchedState.form.errors = err.errors.join();
+          elements.form.querySelector('.error-message').textContent = err.errors.join();
+          elements.form.querySelector('.error-message').style.display = 'block';
         } else {
-          if (err.errors) {
-            watchedState.form.errors = err.errors.join();
-            elements.form.querySelector('.error-message').textContent = err.errors.join();
-            elements.form.querySelector('.error-message').style.display = 'block';
-          } else {
-            watchedState.form.errors = err.name;
-            elements.form.querySelector('.error-message').textContent = err.name;
-            elements.form.querySelector('.error-message').style.display = 'block';
-          }
+          watchedState.form.errors = err.name;
+          elements.form.querySelector('.error-message').textContent = err.name;
+          elements.form.querySelector('.error-message').style.display = 'block';
         }
       });
   });
