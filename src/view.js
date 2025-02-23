@@ -107,10 +107,12 @@ const renderErrorss = (elements, i18n, value) => {
       feedback.textContent = t('errors.networkError');
       break;
 
-    case 'Err':
+    case 'Error':
       feedback.textContent = t('errors.invalidRss');
       break;
-
+    default:
+      feedback.textContent = t('errors.somethingWrong');
+      break;
   }
 };
 
