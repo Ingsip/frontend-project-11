@@ -112,7 +112,7 @@ const renderErrorss = (elements, i18n, value) => {
       break;
 
     default:
-      feedback.textContent = t('errors.somethingWrong');
+      //feedback.textContent = t('errors.somethingWrong');
       break;
   }
 };
