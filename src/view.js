@@ -1,7 +1,7 @@
 import onChange from 'on-change';
 
 const renderFeeds = (elements, i18n, value) => {
-  const { t } = i18n; 
+  const { t } = i18n;
   const { feeds } = elements;
   const li = document.createElement('h2');
   li.textContent = t('feeds');
@@ -39,8 +39,8 @@ const modal = (elements, state, indexOfPost) => {
     modalTitle.textContent = currentPost.title;
     modalBody.textContent = currentPost.description;
     redirect.href = currentPost.link;
-    });
-  };
+  });
+};
 
 const renderPosts = (elements, i18n, value, state) => {
   const { t } = i18n;
@@ -50,7 +50,7 @@ const renderPosts = (elements, i18n, value, state) => {
 
   const fragment = document.createDocumentFragment();
 
-  const postsList  = document.createElement('ul');
+  const postsList = document.createElement('ul');
   postsList.classList.add('list-group');
 
   value.forEach((item) => {
@@ -87,7 +87,7 @@ const renderPosts = (elements, i18n, value, state) => {
 };
 
 const renderErrorss = (elements, i18n, value) => {
-  if(!value) {
+  if (!value) {
     return;
   }
   const { t } = i18n;
@@ -112,7 +112,7 @@ const renderErrorss = (elements, i18n, value) => {
       break;
 
     default:
-      //feedback.textContent = t('errors.somethingWrong');
+      // feedback.textContent = t('errors.somethingWrong');
       break;
   }
 };
@@ -151,7 +151,6 @@ const renderStatus = (elements, i18n, value) => {
       feedback.classList.add('text-danger');
       button.disabled = false;
       break;
-  
     default:
       break;
   }

@@ -1,11 +1,11 @@
 const getPosts = (data) => {
   const items = data.querySelectorAll('channel > item');
   const posts = [...items].map((item) => {
-  const title = item.querySelector('title').textContent;
-  const description = item.querySelector('description').textContent;
-  const link = item.querySelector('link').textContent;
+    const title = item.querySelector('title').textContent;
+    const description = item.querySelector('description').textContent;
+    const link = item.querySelector('link').textContent;
 
-  return { title, description, link };
+    return { title, description, link };
   });
   return posts;
 };
@@ -23,7 +23,7 @@ export default (rss) => {
   const parserError = parsed.querySelector('parsererror');
 
   if (parserError) {
-  throw new Error(parserError);
+    throw new Error(parserError);
   }
 
   const feed = getFeed(parsed);

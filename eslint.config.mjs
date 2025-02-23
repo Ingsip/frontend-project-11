@@ -9,15 +9,15 @@ export default [
   {
     files: ['webpack.config.js'],
     languageOptions: {
-        globals: {
-            __dirname: 'readonly',
-            module: 'readonly',
-            require: 'readonly',
-        },
-        parserOptions: {
-            ecmaVersion: 2020,
-            sourceType: 'module',
-        },
+      globals: {
+          __dirname: 'readonly',
+          module: 'readonly',
+          require: 'readonly',
+      },
+      parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: 'module',
+      },
     },
     plugins: {
       import: eslintPluginImport,
@@ -32,7 +32,7 @@ export default [
     settings: {
       'import/resolver': {
         node: {
-          extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs'], 
+          extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs'],
         },
       },
     },
@@ -41,7 +41,7 @@ export default [
     files: ['src/view.js', 'src/parser.js', 'src/application.js'],
     languageOptions: {
       globals: {
-        document: 'readonly',  // Определяем глобальную переменную document
+        document: 'readonly', // Определяем глобальную переменную document
         window: 'readonly',
         DOMParser: 'readonly',
         URL: 'readonly',
