@@ -103,13 +103,14 @@ const renderErrorss = (elements, i18n, value) => {
       feedback.textContent = t(value);
       break;
 
-    case 'AxiosErr':
-      feedback.textContent = t('errors.networkError');
+    case 'errors.networkError':
+      feedback.textContent = t(value);
       break;
 
     case 'Error':
       feedback.textContent = t('errors.invalidRss');
       break;
+
     default:
       feedback.textContent = t('errors.somethingWrong');
       break;
