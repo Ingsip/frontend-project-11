@@ -113,10 +113,18 @@ const update = () => {
         watchedState.feeds.push({ ...feed, id, link: url });
         posts.forEach((post) => watchedState.posts.push({ ...post, id }));
       })
-      .catch((err) => {
+      /*.catch((err) => {
         watchedState.form.status = 'failed';
         if (!err.errors) {
           watchedState.form.errors = err.name;
+          return;
+        }
+        watchedState.form.errors = err.errors.join();
+      });*/
+      .catch((err) => {
+        watchedState.form.status = 'failed';
+        if (err.message === 'Network Error') {
+          watchedState.form.status = 'networkError';
           return;
         }
         watchedState.form.errors = err.errors.join();
