@@ -17,15 +17,13 @@ const getProxy = (url) => {
 const validate = (url, feeds) => {
   const urlSchema = yup
   .string()
-  .url()
   .required()
+  .url()
   .notOneOf(feeds);
   return urlSchema.validate(url, { abortEarly: false });
 };
 
-
 export default () => {
-
   const i18n = i18next.createInstance();
   i18n.init({
     lng: 'ru',
@@ -33,12 +31,12 @@ export default () => {
     resources,
   }).then(() => {
     yup.setLocale({
-      mixed: {
-        notOneOf: 'errors.conflict',
-      },
       string: {
         url: 'errors.invalidUrl',
         required: 'errors.notEmpty',
+      },
+      mixed: {
+        notOneOf: 'errors.conflict',
       },
     });
   });
@@ -69,7 +67,6 @@ export default () => {
     readPosts: [],
   };
 
-  //const getData = (url) => axios.get(getProxy(url));
   const watchedState = watcher(elements, i18n, state); // Наблюдаемое состояние
 
 const update = () => {
@@ -91,7 +88,7 @@ const update = () => {
     });
     return getNewPost;
   });
-  Promise.all(promises).catch(() => { setTimeout(update, 5000); });
+  Promise.all(promises).finally(() => { setTimeout(update, 5000); });
 };
 
     elements.form.addEventListener('submit', (event) => {
@@ -134,5 +131,5 @@ elements.posts.addEventListener('click', (event) => {
     state.readPosts.push(state.posts[indexOfPost]);
   }
 });
-  update(watchedState);
+  update();
 };

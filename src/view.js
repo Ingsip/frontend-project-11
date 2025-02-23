@@ -1,7 +1,7 @@
 import onChange from 'on-change';
 
 const renderFeeds = (elements, i18n, value) => {
-  const { t } = i18n;
+  const { t } = i18n; 
   const { feeds } = elements;
   const li = document.createElement('h2');
   li.textContent = t('feeds');
@@ -13,13 +13,13 @@ const renderFeeds = (elements, i18n, value) => {
     const feed = document.createElement('li');
     feed.classList.add('list-group-item');
 
-    const header = document.createElement('h3');
-    header.textContent = item.title;
+    const headerFeed = document.createElement('h3');
+    headerFeed.textContent = item.title;
 
-    const description = document.createElement('p');
-    description.textContent = item.description;
+    const descriptionFeed = document.createElement('p');
+    descriptionFeed.textContent = item.description;
 
-    feed.append(header, description);
+    feed.append(headerFeed, descriptionFeed);
     a.prepend(feed);
   });
   feeds.innerHTML = '';
@@ -69,15 +69,15 @@ const renderPosts = (elements, i18n, value, state) => {
     elemTitle.setAttribute('target', '_blank');
     elemTitle.setAttribute('rel', 'noopener noreferrer');
 
-    const button = document.createElement('button');
-    button.textContent = t('viewing');
-    button.classList.add('btn', 'btn-primary', 'btn-sm');
-    button.setAttribute('type', 'button');
-    button.dataset.id = id;
-    button.dataset.bsToggle = 'modal';
-    button.dataset.bsTarget = '#modal';
+    const buttonWatch = document.createElement('button');
+    buttonWatch.textContent = t('viewing');
+    buttonWatch.classList.add('btn', 'btn-primary', 'btn-sm');
+    buttonWatch.setAttribute('type', 'button');
+    buttonWatch.dataset.id = id;
+    buttonWatch.dataset.bsToggle = 'modal';
+    buttonWatch.dataset.bsTarget = '#modal';
 
-    post.append(elemTitle, button);
+    post.append(elemTitle, buttonWatch);
     fragment.prepend(post);
   });
 
@@ -86,15 +86,13 @@ const renderPosts = (elements, i18n, value, state) => {
   posts.append(header, postsList);
 };
 
-
 const renderErrorss = (elements, i18n, value) => {
-  const { t } = i18n;
-
-  const { feedback } = elements;
-
   if(!value) {
     return;
   }
+  const { t } = i18n;
+
+  const { feedback } = elements;
 
   switch (value) {
     case 'errors.invalidUrl':
@@ -105,16 +103,14 @@ const renderErrorss = (elements, i18n, value) => {
       feedback.textContent = t(value);
       break;
 
-    case 'errors.invalidRss':
-      feedback.textContent = t(value);
+    case 'AxiosErr':
+      feedback.textContent = t('errors.networkError');
       break;
-    
-      case 'Axios':
-        feedback.textContent = t('errors.networkError');
-        break;
 
-      default:
-        break;
+    case 'Err':
+      feedback.textContent = t('errors.invalidRss');
+      break;
+
   }
 };
 
@@ -129,6 +125,8 @@ const renderStatus = (elements, i18n, value) => {
   const { t } = i18n;
   const { input, feedback, button } = elements;
   switch (value) {
+    case null:
+      break;
     case 'loading':
       button.disabled = true;
       feedback.classList.remove('text-danger');
@@ -148,7 +146,7 @@ const renderStatus = (elements, i18n, value) => {
       feedback.classList.remove('text-success');
       feedback.classList.remove('text-secondary');
       feedback.classList.add('text-danger');
-      submitButton.disabled = false;
+      button.disabled = false;
       break;
   
     default:
