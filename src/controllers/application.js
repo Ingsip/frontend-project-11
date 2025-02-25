@@ -3,9 +3,9 @@ import i18next from 'i18next';
 import axios from 'axios';
 import _ from 'lodash';
 
-import resources from './locales/index.js';
-import watcher from './view.js';
-import parseRss from './parser.js';
+import resources from '../locales/index.js';
+import watcher from '../views/view.js';
+import parseRss from '../models/parser.js';
 
 const getProxy = (url) => {
   const proxy = new URL('/get', 'https://allorigins.hexlet.app');
@@ -117,7 +117,7 @@ export default () => {
         watchedState.form.status = 'failed';
         if (err.message === 'Network Error') {
           watchedState.form.errors = 'errors.networkError';
-          elements.form.querySelector('.error-message').textContent = 'Ошибка сети';
+          elements.form.querySelector('.error-message').textContent = 'errors.networkError';
           elements.form.querySelector('.error-message').style.display = 'block';
         } else if (err.errors) {
           watchedState.form.errors = err.errors.join();

@@ -38,7 +38,7 @@ export default [
     },
   },
   {
-    files: ['src/view.js', 'src/parser.js', 'src/application.js'],
+    files: ['**/*.js'],
     languageOptions: {
       globals: {
         document: 'readonly', // Определяем глобальную переменную document

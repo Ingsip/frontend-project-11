@@ -17,6 +17,7 @@ const getFeed = (data) => {
   return { title, description };
 };
 
+
 export default (rss) => {
   const parser = new DOMParser();
   const parsed = parser.parseFromString(rss, 'text/xml');
